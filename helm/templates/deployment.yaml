@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dispatch
+  namespace: roboshop
+  labels: # these labels are deployment labels
+    app: dispatch
+    project: roboshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels: # these labels are used to find the pods
+      app: dispatch
+      project: roboshop
+  template:
+    metadata:
+      labels: # these labels are pod labels
+        app: dispatch
+        project: roboshop
+    spec:
+      containers:
+      - name: dispatch
+        image: "{{ .Values.deployment.imageURL}}:{{ .Values.deployment.imageVersion}}"
+        imagePullPolicy: Always
